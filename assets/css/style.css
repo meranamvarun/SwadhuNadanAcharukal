@@ -96,7 +96,7 @@ p {
 }
 
 .nav-toggle {
-  display: none;
+  display: none !important;
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
@@ -565,7 +565,7 @@ main {
   }
 
   .nav-toggle {
-    display: inline-flex;
+    display: inline-flex !important;
     flex-direction: column;
     min-height: 44px;
     min-width: 44px;
