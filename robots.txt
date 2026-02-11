@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Important public resources
+Allow: /assets/css/
+Allow: /assets/img/
+
+Sitemap: https://swadhunadanacharukal.com/sitemap.xml
