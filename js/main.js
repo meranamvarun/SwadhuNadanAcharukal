@@ -1,12 +1,18 @@
 const whatsappNumber = "919495972251";
 
-function buildOrderMessage(productName, size, sizes) {
+function buildOrderMessage(productName, size, quantity) {
+  const bottleLabel = quantity === "1" ? "bottle" : "bottles";
+
   return [
-    "Hello Swadhu Nadan Acharukal,",
-    `I would like to order *${productName}* (${size}).`,
-    `Available sizes: ${sizes}.`,
-    "Please share price and delivery details.",
-    "വിലയും ഡെലിവറി വിവരങ്ങളും അറിയിക്കാമോ.",
+    "Dear Swadhu Nadan Acharukal Team,",
+    "",
+    "I would like to place the following order:",
+    `• Product Type: ${productName}`,
+    `• Bottle Size: ${size}`,
+    `• Quantity: ${quantity} ${bottleLabel}`,
+    "",
+    "Kindly share the total price and delivery details.",
+    "നന്ദി.",
   ].join("\n");
 }
 
@@ -16,8 +22,10 @@ document.querySelectorAll(".btn-whatsapp").forEach((button) => {
     const sizeSelectId = button.dataset.sizeSelect;
     const sizeSelect = sizeSelectId ? document.getElementById(sizeSelectId) : null;
     const size = sizeSelect ? sizeSelect.value : "100g";
-    const sizes = "100g, 250g, 500g";
-    const message = buildOrderMessage(product, size, sizes);
+    const quantitySelectId = button.dataset.quantitySelect;
+    const quantitySelect = quantitySelectId ? document.getElementById(quantitySelectId) : null;
+    const quantity = quantitySelect ? quantitySelect.value : "1";
+    const message = buildOrderMessage(product, size, quantity);
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener");
   });
