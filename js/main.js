@@ -1,12 +1,26 @@
 const whatsappNumber = "919495972251";
 
-function buildOrderMessage(productName, size, quantity) {
+function generateOrderId() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  const randomSuffix = String(Math.floor(Math.random() * 100)).padStart(2, "0");
+
+  return `SWA-${year}${month}${day}-${hours}${minutes}${seconds}-${randomSuffix}`;
+}
+
+function buildOrderMessage(orderId, productName, size, quantity) {
   const bottleLabel = quantity === "1" ? "bottle" : "bottles";
 
   return [
     "Dear Swadhu Nadan Acharukal Team,",
     "",
     "I would like to place the following order:",
+    `• Order ID: ${orderId}`,
     `• Product Type: ${productName}`,
     `• Bottle Size: ${size}`,
     `• Quantity: ${quantity} ${bottleLabel}`,
@@ -25,7 +39,8 @@ document.querySelectorAll(".btn-whatsapp").forEach((button) => {
     const quantitySelectId = button.dataset.quantitySelect;
     const quantitySelect = quantitySelectId ? document.getElementById(quantitySelectId) : null;
     const quantity = quantitySelect ? quantitySelect.value : "1";
-    const message = buildOrderMessage(product, size, quantity);
+    const orderId = generateOrderId();
+    const message = buildOrderMessage(orderId, product, size, quantity);
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener");
   });
