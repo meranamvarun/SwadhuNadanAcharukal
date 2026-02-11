@@ -6,6 +6,8 @@
   --primary: #8f1d1d;
   --text: #222;
   --surface: #fff8f1;
+  --card: #ffffff;
+  --accent: #1f9d55;
 }
 
 body {
@@ -56,10 +58,76 @@ main {
   padding: 2rem 0;
 }
 
-.hero {
-  background: #fff;
+.home-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero,
+.story-card,
+.trust-and-cta {
+  background: var(--card);
   border-radius: 0.5rem;
   padding: 1.25rem;
+}
+
+.hero-brand {
+  margin: 0;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.hero h2 {
+  margin: 0.5rem 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.hero-tagline {
+  margin: 0;
+  max-width: 65ch;
+}
+
+.story-card h3 {
+  margin-top: 0;
+}
+
+.trust-and-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-weight: 600;
+}
+
+.cta-button {
+  display: inline-block;
+  text-decoration: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0.4rem;
+  padding: 0.6rem 1rem;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: #157347;
 }
 
 .site-footer {
@@ -71,4 +139,15 @@ main {
 .site-footer p {
   margin: 0;
   font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .trust-and-cta {
+    align-items: flex-start;
+  }
+
+  .cta-button {
+    width: 100%;
+    text-align: center;
+  }
 }
