@@ -1,9 +1,9 @@
 const whatsappNumber = "919495972251";
 
-function buildOrderMessage(productName, sizes) {
+function buildOrderMessage(productName, size, sizes) {
   return [
     "Hello Swadhu Nadan Acharukal,",
-    `I would like to order *${productName}*.`,
+    `I would like to order *${productName}* (${size}).`,
     `Available sizes: ${sizes}.`,
     "Please share price and delivery details.",
   ].join("\n");
@@ -11,9 +11,12 @@ function buildOrderMessage(productName, sizes) {
 
 document.querySelectorAll(".btn-whatsapp").forEach((button) => {
   button.addEventListener("click", () => {
-    const product = button.dataset.product;
-    const sizes = button.dataset.sizes;
-    const message = buildOrderMessage(product, sizes);
+    const product = button.dataset.product || "Pickle";
+    const sizeSelectId = button.dataset.sizeSelect;
+    const sizeSelect = sizeSelectId ? document.getElementById(sizeSelectId) : null;
+    const size = sizeSelect ? sizeSelect.value : "100g";
+    const sizes = "100g, 250g, 500g";
+    const message = buildOrderMessage(product, size, sizes);
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener");
   });
