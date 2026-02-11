@@ -1,57 +1,112 @@
-* {
+/* Basic reset */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
 }
 
 :root {
   --primary: #8f1d1d;
-  --text: #222;
+  --text: #2d2117;
   --surface: #fff8f1;
   --card: #ffffff;
   --accent: #1f9d55;
+  --accent-dark: #157347;
+  --nav-bg: #741515;
+  --heading-font: "Noto Serif Malayalam", "Georgia", "Times New Roman", serif;
+  --body-font: "Noto Sans Malayalam", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Typography: Kerala traditional feel */
 body {
+  min-height: 100vh;
   margin: 0;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  font-family: var(--body-font);
+  line-height: 1.65;
+  letter-spacing: 0.01em;
   color: var(--text);
-  background: var(--surface);
+  background: linear-gradient(180deg, #fff6ea 0%, var(--surface) 100%);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--heading-font);
+  line-height: 1.25;
+  color: #4a170b;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 .container {
-  width: min(100% - 2rem, 960px);
+  width: min(100% - 2rem, 1080px);
   margin-inline: auto;
 }
 
 .site-header {
-  background: var(--primary);
+  background: linear-gradient(180deg, var(--primary) 0%, var(--nav-bg) 100%);
   color: #fff;
   padding: 1rem 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .site-header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  letter-spacing: 0.04em;
 }
 
+/* Navigation styles */
 .nav-list {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0;
-  margin: 0.75rem 0 0;
+  margin: 0.85rem 0 0;
 }
 
 .nav-list a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-list a:hover,
+.nav-list a:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .nav-list a.active {
-  text-decoration: underline;
+  background: #fff;
+  color: var(--primary);
 }
 
 main {
@@ -60,26 +115,29 @@ main {
 
 .products-section h2 {
   margin-top: 0;
+  margin-bottom: 1rem;
 }
 
+/* Responsive grid for products */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
 }
 
 .product-card {
   background: var(--card);
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   border: 1px solid #ebd5c0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 10px 20px rgba(122, 66, 22, 0.08);
 }
 
 .product-card img {
   width: 100%;
-  height: 150px;
+  height: 170px;
   object-fit: cover;
 }
 
@@ -98,20 +156,23 @@ main {
   font-weight: 700;
 }
 
+/* WhatsApp button style in green */
 .order-button {
   margin: auto 0.85rem 0.85rem;
   text-decoration: none;
   text-align: center;
-  background: var(--accent);
+  background: linear-gradient(180deg, #25d366 0%, var(--accent) 100%);
   color: #fff;
   font-weight: 700;
-  border-radius: 0.4rem;
-  padding: 0.55rem 0.8rem;
+  border-radius: 0.45rem;
+  border: 1px solid #1ba14a;
+  padding: 0.6rem 0.8rem;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .order-button:hover,
 .order-button:focus-visible {
-  background: #157347;
+  background: linear-gradient(180deg, #22c35e 0%, var(--accent-dark) 100%);
 }
 
 .home-content {
@@ -183,7 +244,7 @@ main {
 
 .cta-button:hover,
 .cta-button:focus-visible {
-  background: #157347;
+  background: var(--accent-dark);
 }
 
 .site-footer {
@@ -197,6 +258,18 @@ main {
   font-size: 0.9rem;
 }
 
+@media (max-width: 960px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
   .trust-and-cta {
     align-items: flex-start;
@@ -205,5 +278,9 @@ main {
   .cta-button {
     width: 100%;
     text-align: center;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
   }
 }
