@@ -36,72 +36,103 @@ if (sliderShell) {
   const nextButton = sliderShell.querySelector(".intro-slider-next");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  let currentIndex = 0;
-  let autoSlideTimer;
+  if (sliderTrack && prevButton && nextButton) {
+    let currentIndex = 0;
+    let autoSlideTimer;
+    let touchStartX = 0;
 
-  const renderSlide = (index) => {
-    sliderTrack.style.transform = `translateX(-${index * 100}%)`;
-  };
+    const renderSlide = (index) => {
+      sliderTrack.style.transform = `translate3d(-${index * 100}%, 0, 0)`;
+    };
 
-  const updateControls = () => {
-    const hasMultipleSlides = slides.length > 1;
-    prevButton.disabled = !hasMultipleSlides;
-    nextButton.disabled = !hasMultipleSlides;
-  };
+    const updateControls = () => {
+      const hasMultipleSlides = slides.length > 1;
+      prevButton.disabled = !hasMultipleSlides;
+      nextButton.disabled = !hasMultipleSlides;
+    };
 
-  const goToSlide = (index) => {
-    if (slides.length === 0) {
-      return;
-    }
+    const goToSlide = (index) => {
+      if (slides.length === 0) {
+        return;
+      }
 
-    if (index < 0) {
-      currentIndex = slides.length - 1;
-    } else if (index >= slides.length) {
-      currentIndex = 0;
-    } else {
-      currentIndex = index;
-    }
+      if (index < 0) {
+        currentIndex = slides.length - 1;
+      } else if (index >= slides.length) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
 
-    renderSlide(currentIndex);
-  };
+      renderSlide(currentIndex);
+    };
 
-  const restartAutoSlide = () => {
-    window.clearInterval(autoSlideTimer);
+    const restartAutoSlide = () => {
+      window.clearInterval(autoSlideTimer);
 
-    if (prefersReducedMotion || slides.length < 2) {
-      return;
-    }
+      if (prefersReducedMotion || slides.length < 2) {
+        return;
+      }
 
-    autoSlideTimer = window.setInterval(() => {
-      goToSlide(currentIndex + 1);
-    }, 4500);
-  };
+      autoSlideTimer = window.setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 4500);
+    };
 
-  prevButton.addEventListener("click", () => {
-    goToSlide(currentIndex - 1);
-    restartAutoSlide();
-  });
-
-  nextButton.addEventListener("click", () => {
-    goToSlide(currentIndex + 1);
-    restartAutoSlide();
-  });
-
-  sliderShell.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
+    prevButton.addEventListener("click", () => {
       goToSlide(currentIndex - 1);
       restartAutoSlide();
-    }
+    });
 
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
+    nextButton.addEventListener("click", () => {
       goToSlide(currentIndex + 1);
       restartAutoSlide();
-    }
-  });
+    });
 
-  updateControls();
-  goToSlide(0);
-  restartAutoSlide();
+    sliderShell.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goToSlide(currentIndex - 1);
+        restartAutoSlide();
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goToSlide(currentIndex + 1);
+        restartAutoSlide();
+      }
+    });
+
+    sliderShell.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      },
+      { passive: true }
+    );
+
+    sliderShell.addEventListener(
+      "touchend",
+      (event) => {
+        const deltaX = event.changedTouches[0].clientX - touchStartX;
+
+        if (Math.abs(deltaX) < 40) {
+          return;
+        }
+
+        if (deltaX > 0) {
+          goToSlide(currentIndex - 1);
+        } else {
+          goToSlide(currentIndex + 1);
+        }
+
+        restartAutoSlide();
+      },
+      { passive: true }
+    );
+
+    updateControls();
+    goToSlide(0);
+    restartAutoSlide();
+  }
 }
