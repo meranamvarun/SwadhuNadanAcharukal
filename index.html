@@ -86,23 +86,31 @@
 
       <section class="intro-slider" aria-label="Featured pickle gallery">
         <h3 class="intro-slider-title">Fresh from our kitchen</h3>
-        <div class="intro-slider-track">
-          <figure class="intro-slide">
-            <img
-              src="assets/img/pickle-product-08.jpeg"
-              alt="Swadhu Nadan Acharukal homemade pickle in a serving bowl"
-              width="800"
-              height="1000"
-            />
-          </figure>
-          <figure class="intro-slide">
-            <img
-              src="assets/img/pickle-product-07.jpeg"
-              alt="Close-up of Swadhu Nadan Acharukal pickle jar with spices"
-              width="800"
-              height="1000"
-            />
-          </figure>
+        <div class="intro-slider-shell" tabindex="0" aria-live="polite">
+          <button class="intro-slider-control intro-slider-prev" type="button" aria-label="Show previous image">
+            &#10094;
+          </button>
+          <div class="intro-slider-track">
+            <figure class="intro-slide">
+              <img
+                src="assets/img/pickle-product-08.jpeg"
+                alt="Swadhu Nadan Acharukal homemade pickle in a serving bowl"
+                width="800"
+                height="1000"
+              />
+            </figure>
+            <figure class="intro-slide">
+              <img
+                src="assets/img/pickle-product-07.jpeg"
+                alt="Close-up of Swadhu Nadan Acharukal pickle jar with spices"
+                width="800"
+                height="1000"
+              />
+            </figure>
+          </div>
+          <button class="intro-slider-control intro-slider-next" type="button" aria-label="Show next image">
+            &#10095;
+          </button>
         </div>
       </section>
 
@@ -136,5 +144,6 @@
         <p>Home-based food business, Thodupuzha, Idukki</p>
       </div>
     </footer>
+    <script src="js/main.js" defer></script>
   </body>
 </html>
