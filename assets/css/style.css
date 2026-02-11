@@ -322,17 +322,22 @@ main {
   outline-offset: 4px;
 }
 
+.intro-slider-viewport {
+  overflow: hidden;
+  border-radius: 0.6rem;
+}
+
 .intro-slider-track {
   display: flex;
   gap: 0;
-  overflow: hidden;
-  border-radius: 0.6rem;
-  scroll-behavior: smooth;
+  width: 100%;
+  transition: transform 360ms ease;
+  will-change: transform;
 }
 
 .intro-slide {
   margin: 0;
-  min-width: 100%;
+  flex: 0 0 100%;
   border: 1px solid #e8d3bf;
   background: #fff;
   box-shadow: 0 8px 18px rgba(122, 66, 22, 0.08);
@@ -368,7 +373,7 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .intro-slider-track {
-    scroll-behavior: auto;
+    transition: none;
   }
 }
 
