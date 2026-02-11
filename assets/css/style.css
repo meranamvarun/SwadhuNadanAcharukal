@@ -33,8 +33,8 @@ a {
   --whatsapp: #25d366;
   --whatsapp-dark: #128c49;
   --nav-bg: #741515;
-  --heading-font: "Noto Serif Malayalam", "Georgia", "Times New Roman", serif;
-  --body-font: "Noto Sans Malayalam", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --heading-font: "Georgia", "Times New Roman", serif;
+  --body-font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Typography: Kerala traditional feel */
@@ -112,18 +112,6 @@ p {
   text-decoration: none;
   font-weight: 700;
   transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.lang-ml {
-  display: block;
-  margin-top: 0.1rem;
-  color: #6d4b31;
-  font-size: 0.94em;
-}
-
-.lang-ml-inline {
-  color: #6d4b31;
-  font-size: 0.94em;
 }
 
 .nav-list a:hover,
@@ -240,14 +228,6 @@ main {
 .order-button:hover,
 .order-button:focus-visible {
   background: linear-gradient(180deg, #27cc65 0%, #0f7c3f 100%);
-}
-
-.order-button .lang-ml-inline,
-.cta-button .lang-ml-inline,
-.contact-form button .lang-ml-inline {
-  color: #ecfff3;
-  display: block;
-  font-size: 0.88em;
 }
 
 .home-content {
