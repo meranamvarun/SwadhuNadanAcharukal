@@ -6,6 +6,7 @@ function buildOrderMessage(productName, size, sizes) {
     `I would like to order *${productName}* (${size}).`,
     `Available sizes: ${sizes}.`,
     "Please share price and delivery details.",
+    "വിലയും ഡെലിവറി വിവരങ്ങളും അറിയിക്കാമോ.",
   ].join("\n");
 }
 
