@@ -1,3 +1,30 @@
+const navToggle = document.querySelector(".nav-toggle");
+const mainNav = document.querySelector(".main-nav");
+
+if (navToggle && mainNav) {
+  document.body.classList.add("js-enabled");
+
+  const closeMenu = () => {
+    mainNav.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+  };
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  mainNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 640) {
+      closeMenu();
+    }
+  });
+}
+
 const whatsappNumber = "919495972251";
 
 function generateOrderId() {
