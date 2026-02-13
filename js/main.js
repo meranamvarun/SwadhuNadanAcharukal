@@ -57,21 +57,90 @@ function buildOrderMessage(orderId, productName, size, quantity) {
   ].join("\n");
 }
 
-document.querySelectorAll(".btn-whatsapp").forEach((button) => {
-  button.addEventListener("click", () => {
-    const product = button.dataset.product || "Pickle";
-    const sizeSelectId = button.dataset.sizeSelect;
-    const sizeSelect = sizeSelectId ? document.getElementById(sizeSelectId) : null;
-    const size = sizeSelect ? sizeSelect.value : "100g";
-    const quantitySelectId = button.dataset.quantitySelect;
-    const quantitySelect = quantitySelectId ? document.getElementById(quantitySelectId) : null;
-    const quantity = quantitySelect ? quantitySelect.value : "1";
-    const orderId = generateOrderId();
-    const message = buildOrderMessage(orderId, product, size, quantity);
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank", "noopener");
+function attachWhatsAppButtonListeners() {
+  document.querySelectorAll(".btn-whatsapp").forEach((button) => {
+    button.addEventListener("click", () => {
+      const product = button.dataset.product || "Pickle";
+      const sizeSelectId = button.dataset.sizeSelect;
+      const sizeSelect = sizeSelectId ? document.getElementById(sizeSelectId) : null;
+      const size = sizeSelect ? sizeSelect.value : "100g";
+      const quantitySelectId = button.dataset.quantitySelect;
+      const quantitySelect = quantitySelectId ? document.getElementById(quantitySelectId) : null;
+      const quantity = quantitySelect ? quantitySelect.value : "1";
+      const orderId = generateOrderId();
+      const message = buildOrderMessage(orderId, product, size, quantity);
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank", "noopener");
+    });
   });
-});
+}
+
+function slugify(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function formatPriceMap(prices, weights) {
+  return weights
+    .map((weight) => {
+      const price = prices[weight];
+      return price ? `${weight}: ₹${price}` : `${weight}: N/A`;
+    })
+    .join(" | ");
+}
+
+function renderProductCardsFromInventory() {
+  const productGrid = document.querySelector("#product-grid");
+  const inventory = window.SKU_INVENTORY;
+
+  if (!productGrid || !inventory || !Array.isArray(inventory.items)) {
+    return;
+  }
+
+  const cards = inventory.items
+    .map((item) => {
+      const slug = slugify(item.productName);
+      const sizeSelectId = `size-${slug}`;
+      const quantitySelectId = `qty-${slug}`;
+      const weightOptions = item.weightCategories
+        .map((weight) => `<option value="${weight}">${weight}</option>`)
+        .join("");
+      const quantityOptions = item.availableQuantities
+        .map((qty) => {
+          const bottleLabel = qty === 1 ? "bottle" : "bottles";
+          return `<option value="${qty}">${qty} ${bottleLabel}</option>`;
+        })
+        .join("");
+
+      return `
+        <article class="product-card">
+          <img src="${item.displayPhoto}" alt="${item.productName}" />
+          <h3>${item.productName}</h3>
+          <p class="sizes">Branch: <span>${inventory.branchName}</span></p>
+          <p class="sizes">SKU: <span>${item.sku}</span></p>
+          <p class="sizes">Weight categories available: <span>${item.weightCategories.length}</span></p>
+          <p class="sizes">Quantity options available: <span>${item.availableQuantities.length}</span></p>
+          <p class="sizes">Price: <span>${formatPriceMap(item.prices, item.weightCategories)}</span></p>
+          <label class="size-select-label" for="${sizeSelectId}">Choose size</label>
+          <select id="${sizeSelectId}" class="size-select" aria-label="Choose size for ${item.productName}">
+            ${weightOptions}
+          </select>
+          <label class="size-select-label" for="${quantitySelectId}">Number of bottles</label>
+          <select id="${quantitySelectId}" class="size-select" aria-label="Choose number of bottles for ${item.productName}">
+            ${quantityOptions}
+          </select>
+          <button class="order-button btn-whatsapp" type="button" data-product="${item.productName}" data-size-select="${sizeSelectId}" data-quantity-select="${quantitySelectId}">
+            Order on WhatsApp
+          </button>
+        </article>
+      `;
+    })
+    .join("");
+
+  productGrid.innerHTML = cards;
+}
+
+renderProductCardsFromInventory();
+attachWhatsAppButtonListeners();
 
 const yearElement = document.querySelector("#year");
 if (yearElement) {
