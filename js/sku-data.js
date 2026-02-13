@@ -1,16 +1,16 @@
-const SKU_INVENTORY = {
+window.SKU_INVENTORY = {
   branchName: "Swadhu Nadan Acharukal - Thodupuzha",
   items: [
     {
       sku: "SKU-MANGO-001",
       productName: "Mango Pickle",
-      displayPhoto: "assets/img/fish-achar.jpeg",
+      displayPhoto: "assets/img/mango-achar.jpeg",
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 120,
-        "250g": 260,
-        "500g": 500,
+        "100g": 90,
+        "250g": 50,
+        "500g": 450,
       },
     },
     {
@@ -20,21 +20,21 @@ const SKU_INVENTORY = {
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 100,
-        "250g": 220,
-        "500g": 420,
+        "100g": 90,
+        "250g": 50,
+        "500g": 450,
       },
     },
     {
-      sku: "SKU-AMLA-001",
-      productName: "Amla Pickle",
+      sku: "SKU-GOOSEBERRY-001",
+      productName: "Gooseberry Pickle",
       displayPhoto: "assets/img/amla-achar.jpeg",
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 110,
-        "250g": 230,
-        "500g": 440,
+        "100g": 90,
+        "250g": 50,
+        "500g": 450,
       },
     },
     {
@@ -44,21 +44,9 @@ const SKU_INVENTORY = {
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 160,
-        "250g": 340,
-        "500g": 660,
-      },
-    },
-    {
-      sku: "SKU-PRAWN-001",
-      productName: "Prawn Pickle",
-      displayPhoto: "assets/img/mango-achar.jpeg",
-      weightCategories: ["100g", "250g", "500g"],
-      availableQuantities: [1, 2, 3, 4, 5],
-      prices: {
-        "100g": 170,
-        "250g": 360,
-        "500g": 700,
+        "100g": 90,
+        "250g": 200,
+        "500g": 450,
       },
     },
     {
@@ -68,9 +56,9 @@ const SKU_INVENTORY = {
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 150,
-        "250g": 320,
-        "500g": 620,
+        "100g": 90,
+        "250g": 225,
+        "500g": 450,
       },
     },
   ],
