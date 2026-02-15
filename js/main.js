@@ -138,7 +138,7 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
 }
 
 renderProductCardsFromInventory();
-renderProductCardsFromInventory("#product-grid-home", 4);
+renderProductCardsFromInventory("#product-grid-home");
 attachWhatsAppButtonListeners();
 
 const yearElement = document.querySelector("#year");
