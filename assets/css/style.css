@@ -276,7 +276,7 @@ main {
 
 .hero,
 .story-card,
-.trust-and-cta {
+.top-trust {
   background: var(--card);
   border-radius: 0.5rem;
   padding: clamp(1rem, 2vw, 1.25rem);
@@ -448,16 +448,26 @@ main {
   color: var(--primary);
 }
 
-.story-card h3 {
-  margin-top: 0;
-}
 
-.trust-and-cta {
+.top-trust {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   align-items: center;
   justify-content: space-between;
+  gap: 0.65rem 1rem;
+  border: 1px solid #f3cf77;
+  background: linear-gradient(180deg, #fffaf0 0%, #fff3d6 100%);
+}
+
+.top-trust-meta {
+  margin: 0;
+  color: #7b4a13;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.story-card h3 {
+  margin-top: 0;
 }
 
 .badge {
@@ -471,25 +481,6 @@ main {
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
   font-weight: 600;
-}
-
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  background: linear-gradient(180deg, #2ee071 0%, var(--whatsapp-dark) 100%);
-  color: #fff;
-  font-weight: 700;
-  border-radius: 0.4rem;
-  border: 1px solid #0f7c3f;
-  padding: 0.65rem 1rem;
-  min-height: 44px;
-}
-
-.cta-button:hover,
-.cta-button:focus-visible {
-  background: linear-gradient(180deg, #27cc65 0%, #0f7c3f 100%);
 }
 
 .contact-form {
@@ -646,13 +637,8 @@ main {
     height: 2.5rem;
   }
 
-  .trust-and-cta {
+  .top-trust {
     align-items: flex-start;
-  }
-
-  .cta-button {
-    width: 100%;
-    text-align: center;
   }
 
   .product-grid {
