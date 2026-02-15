@@ -4,23 +4,50 @@ const mainNav = document.querySelector(".main-nav");
 if (navToggle && mainNav) {
   document.body.classList.add("js-enabled");
 
+  const isMobileViewport = () => window.matchMedia("(max-width: 640px)").matches;
+
+  const setMenuState = (isOpen) => {
+    mainNav.classList.toggle("is-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    document.body.classList.toggle("menu-open", Boolean(isOpen && isMobileViewport()));
+  };
+
   const closeMenu = () => {
-    mainNav.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
+    setMenuState(false);
   };
 
   navToggle.addEventListener("click", () => {
-    const isOpen = mainNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+    const nextOpenState = !mainNav.classList.contains("is-open");
+    setMenuState(nextOpenState);
   });
 
   mainNav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", closeMenu);
   });
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 640) {
+  document.addEventListener("click", (event) => {
+    if (!mainNav.classList.contains("is-open") || !isMobileViewport()) {
+      return;
+    }
+
+    if (mainNav.contains(event.target) || navToggle.contains(event.target)) {
+      return;
+    }
+
+    closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mainNav.classList.contains("is-open")) {
       closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (!isMobileViewport()) {
+      closeMenu();
+    } else {
+      document.body.classList.toggle("menu-open", mainNav.classList.contains("is-open"));
     }
   });
 }
@@ -158,6 +185,7 @@ if (sliderShell) {
     let currentIndex = 0;
     let autoSlideTimer;
     let touchStartX = 0;
+    let pointerStartX = null;
 
     const renderSlide = (index) => {
       sliderTrack.style.transform = `translate3d(-${index * 100}%, 0, 0)`;
@@ -248,6 +276,42 @@ if (sliderShell) {
       },
       { passive: true }
     );
+
+
+    if (window.PointerEvent) {
+      sliderShell.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "touch" && event.pointerType !== "pen") {
+          return;
+        }
+
+        pointerStartX = event.clientX;
+      });
+
+      sliderShell.addEventListener("pointerup", (event) => {
+        if (pointerStartX === null) {
+          return;
+        }
+
+        const deltaX = event.clientX - pointerStartX;
+        pointerStartX = null;
+
+        if (Math.abs(deltaX) < 40) {
+          return;
+        }
+
+        if (deltaX > 0) {
+          goToSlide(currentIndex - 1);
+        } else {
+          goToSlide(currentIndex + 1);
+        }
+
+        restartAutoSlide();
+      });
+
+      sliderShell.addEventListener("pointercancel", () => {
+        pointerStartX = null;
+      });
+    }
 
     updateControls();
     goToSlide(0);
