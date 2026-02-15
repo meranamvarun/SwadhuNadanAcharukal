@@ -88,15 +88,17 @@ function formatPriceMap(prices, weights) {
     .join(" | ");
 }
 
-function renderProductCardsFromInventory() {
-  const productGrid = document.querySelector("#product-grid");
+function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItems) {
+  const productGrid = document.querySelector(gridSelector);
   const inventory = window.SKU_INVENTORY;
 
   if (!productGrid || !inventory || !Array.isArray(inventory.items)) {
     return;
   }
 
-  const cards = inventory.items
+  const itemsToRender = typeof maxItems === "number" ? inventory.items.slice(0, maxItems) : inventory.items;
+
+  const cards = itemsToRender
     .map((item) => {
       const slug = slugify(item.productName);
       const sizeSelectId = `size-${slug}`;
@@ -136,6 +138,7 @@ function renderProductCardsFromInventory() {
 }
 
 renderProductCardsFromInventory();
+renderProductCardsFromInventory("#product-grid-home", 4);
 attachWhatsAppButtonListeners();
 
 const yearElement = document.querySelector("#year");
