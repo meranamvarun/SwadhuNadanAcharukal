@@ -416,6 +416,38 @@ main {
   }
 }
 
+
+.home-shop {
+  background: var(--card);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ebd5c0;
+}
+
+.home-shop-header {
+  margin-bottom: 0.85rem;
+}
+
+.home-shop-header h3 {
+  margin: 0;
+}
+
+.home-shop-header p {
+  margin: 0.35rem 0 0;
+  color: #5b4534;
+}
+
+.product-grid-home {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home-shop-link {
+  margin-top: 0.9rem;
+  display: inline-block;
+  font-weight: 700;
+  color: var(--primary);
+}
+
 .story-card h3 {
   margin-top: 0;
 }
@@ -624,6 +656,10 @@ main {
   }
 
   .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-grid-home {
     grid-template-columns: 1fr;
   }
 }
