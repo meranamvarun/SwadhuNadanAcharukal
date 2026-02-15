@@ -52,7 +52,7 @@ function buildOrderMessage(orderId, productName, size, quantity) {
     `• Bottle Size: ${size}`,
     `• Quantity: ${quantity} ${bottleLabel}`,
     "",
-    "Kindly share the total price and delivery details.",
+    "Please share delivery details.",
     "നന്ദി.",
   ].join("\n");
 }
@@ -115,10 +115,6 @@ function renderProductCardsFromInventory() {
         <article class="product-card">
           <img src="${item.displayPhoto}" alt="${item.productName}" />
           <h3>${item.productName}</h3>
-          <p class="sizes">Branch: <span>${inventory.branchName}</span></p>
-          <p class="sizes">SKU: <span>${item.sku}</span></p>
-          <p class="sizes">Weight categories available: <span>${item.weightCategories.length}</span></p>
-          <p class="sizes">Quantity options available: <span>${item.availableQuantities.length}</span></p>
           <p class="sizes">Price: <span>${formatPriceMap(item.prices, item.weightCategories)}</span></p>
           <label class="size-select-label" for="${sizeSelectId}">Choose size</label>
           <select id="${sizeSelectId}" class="size-select" aria-label="Choose size for ${item.productName}">
