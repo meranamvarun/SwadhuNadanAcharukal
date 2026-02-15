@@ -1,40 +1,36 @@
 window.SKU_INVENTORY = {
-  branchName: "Swadhu Nadan Acharukal - Thodupuzha",
   items: [
     {
       sku: "SKU-MANGO-001",
       productName: "Mango Pickle",
       displayPhoto: "assets/img/mango-achar.jpeg",
-      weightCategories: ["100g", "250g", "500g"],
+      weightCategories: ["250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 90,
         "250g": 50,
-        "500g": 450,
+        "500g": 100,
       },
     },
     {
       sku: "SKU-LEMON-001",
       productName: "Lemon Pickle",
       displayPhoto: "assets/img/lime-achar.jpeg",
-      weightCategories: ["100g", "250g", "500g"],
+      weightCategories: ["250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 90,
         "250g": 50,
-        "500g": 450,
+        "500g": 100,
       },
     },
     {
       sku: "SKU-GOOSEBERRY-001",
       productName: "Gooseberry Pickle",
       displayPhoto: "assets/img/amla-achar.jpeg",
-      weightCategories: ["100g", "250g", "500g"],
+      weightCategories: ["250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
-        "100g": 90,
         "250g": 50,
-        "500g": 450,
+        "500g": 100,
       },
     },
     {
