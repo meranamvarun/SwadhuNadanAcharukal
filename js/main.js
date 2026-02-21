@@ -169,21 +169,42 @@ function generateOrderId() {
   return `SWA-${year}${month}${day}-${hours}${minutes}${seconds}-${randomSuffix}`;
 }
 
-function buildOrderMessage(orderId, productName, size, quantity) {
-  const bottleLabel = quantity === "1" ? "bottle" : "bottles";
+function buildOrderMessage(orderId, productName, size, quantity, totalProductCost) {
+  const numericQuantity = Number(quantity);
+  const bottleLabel = numericQuantity === 1 ? "bottle" : "bottles";
+  const formattedTotalProductCost = Number.isFinite(totalProductCost)
+    ? totalProductCost
+    : 0;
 
   return [
     "Dear Swadhu Nadan Acharukal Team,",
     "",
     "I would like to place the following order:",
     `• Order ID: ${orderId}`,
-    `• Product Type: ${productName}`,
-    `• Bottle Size: ${size}`,
-    `• Quantity: ${quantity} ${bottleLabel}`,
+    `• Product: ${productName}`,
+    `• Size: ${size}`,
+    `• Quantity: ${numericQuantity} ${bottleLabel}`,
+    `• Total Product Cost: ₹${formattedTotalProductCost}`,
     "",
-    "Please share delivery details.",
+    "Please share delivery details and confirmation. Thank you.",
     "നന്ദി.",
   ].join("\n");
+}
+
+function getSelectedProductUnitPrice(productName, size) {
+  const inventory = window.SKU_INVENTORY;
+
+  if (!inventory || !Array.isArray(inventory.items)) {
+    return 0;
+  }
+
+  const productItem = inventory.items.find((item) => item.productName === productName);
+  if (!productItem || !productItem.prices) {
+    return 0;
+  }
+
+  const unitPrice = productItem.prices[size];
+  return Number(unitPrice) || 0;
 }
 
 function attachWhatsAppButtonListeners() {
@@ -197,7 +218,9 @@ function attachWhatsAppButtonListeners() {
       const quantitySelect = quantitySelectId ? document.getElementById(quantitySelectId) : null;
       const quantity = quantitySelect ? quantitySelect.value : "1";
       const orderId = generateOrderId();
-      const message = buildOrderMessage(orderId, product, size, quantity);
+      const unitPrice = getSelectedProductUnitPrice(product, size);
+      const totalProductCost = unitPrice * Number(quantity);
+      const message = buildOrderMessage(orderId, product, size, quantity, totalProductCost);
       const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank", "noopener");
     });
