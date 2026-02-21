@@ -54,6 +54,108 @@ if (navToggle && mainNav) {
 
 const whatsappNumber = "919495972251";
 
+function trackAnalyticsEvent(eventName, eventParams = {}) {
+  if (typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", eventName, eventParams);
+}
+
+function setupCtaClickTracking() {
+  const selector = [
+    ".hero-cta",
+    ".home-shop-link",
+    ".cta-button",
+    ".btn-whatsapp",
+    "button[type='submit']",
+  ].join(",");
+
+  document.querySelectorAll(selector).forEach((element) => {
+    element.addEventListener("click", () => {
+      const label =
+        element.dataset.product ||
+        element.textContent?.trim() ||
+        element.getAttribute("aria-label") ||
+        "unknown";
+
+      trackAnalyticsEvent("cta_click", {
+        cta_label: label,
+        cta_destination: element.getAttribute("href") || "in-page",
+        page_path: window.location.pathname,
+      });
+    });
+  });
+}
+
+function setupScrollDepthTracking() {
+  const milestones = [25, 50, 75, 100];
+  const firedMilestones = new Set();
+
+  const onScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const documentHeight =
+      document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+    if (documentHeight <= 0) {
+      return;
+    }
+
+    const depth = Math.round((scrollTop / documentHeight) * 100);
+
+    milestones.forEach((milestone) => {
+      if (depth >= milestone && !firedMilestones.has(milestone)) {
+        firedMilestones.add(milestone);
+        trackAnalyticsEvent("scroll_depth", {
+          scroll_depth_percent: milestone,
+          page_path: window.location.pathname,
+        });
+      }
+    });
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+}
+
+function setupProductViewTracking() {
+  const productCards = document.querySelectorAll(".product-card");
+
+  if (!productCards.length || typeof window.IntersectionObserver !== "function") {
+    return;
+  }
+
+  const viewedProducts = new Set();
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const productName = entry.target.dataset.productName || "unknown";
+
+        if (viewedProducts.has(productName)) {
+          currentObserver.unobserve(entry.target);
+          return;
+        }
+
+        viewedProducts.add(productName);
+        trackAnalyticsEvent("view_item", {
+          item_name: productName,
+          page_path: window.location.pathname,
+        });
+        currentObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  productCards.forEach((card) => {
+    observer.observe(card);
+  });
+}
+
 function generateOrderId() {
   const now = new Date();
   const year = now.getFullYear();
@@ -141,7 +243,7 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
         .join("");
 
       return `
-        <article class="product-card">
+        <article class="product-card" data-product-name="${item.productName}">
           <img src="${item.displayPhoto}" alt="${item.productName}" />
           <h3>${item.productName}</h3>
           <p class="sizes">Price: <span>${formatPriceMap(item.prices, item.weightCategories)}</span></p>
@@ -167,6 +269,9 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
 renderProductCardsFromInventory();
 renderProductCardsFromInventory("#product-grid-home");
 attachWhatsAppButtonListeners();
+setupCtaClickTracking();
+setupScrollDepthTracking();
+setupProductViewTracking();
 
 const yearElement = document.querySelector("#year");
 if (yearElement) {
