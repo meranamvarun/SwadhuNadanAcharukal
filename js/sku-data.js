@@ -48,7 +48,7 @@ window.SKU_INVENTORY = {
     {
       sku: "SKU-BEEF-001",
       productName: "Beef Pickle",
-      displayPhoto: "assets/img/all-products-display.jpeg",
+      displayPhoto: "assets/img/beef-achaar.jpeg",
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
