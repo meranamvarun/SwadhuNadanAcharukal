@@ -1140,3 +1140,32 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+.faq-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.faq-intro,
+.faq-card {
+  background: var(--card);
+  border: 1px solid #ebd5c0;
+  border-radius: 0.6rem;
+  padding: 1.2rem;
+  box-shadow: 0 10px 20px rgba(122, 66, 22, 0.08);
+}
+
+.faq-intro p {
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+}
+
+.faq-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.faq-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+}
