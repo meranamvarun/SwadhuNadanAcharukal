@@ -53,6 +53,13 @@ if (navToggle && mainNav) {
 }
 
 const whatsappNumber = "919495972251";
+const productDetailPages = {
+  "Mango Pickle": "mango-pickle-kerala.html",
+  "Lemon Pickle": "lemon-pickle-kerala.html",
+  "Gooseberry Pickle": "gooseberry-pickle-kerala.html",
+  "Fish Pickle": "fish-pickle-kerala.html",
+  "Beef Pickle": "beef-pickle-kerala.html",
+};
 
 function trackAnalyticsEvent(eventName, eventParams = {}) {
   if (typeof window.gtag !== "function") {
@@ -249,6 +256,7 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
   }
 
   const itemsToRender = typeof maxItems === "number" ? inventory.items.slice(0, maxItems) : inventory.items;
+  const shouldShowKnowMore = gridSelector === "#product-grid";
 
   const cards = itemsToRender
     .map((item) => {
@@ -264,6 +272,11 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
           return `<option value="${qty}">${qty} ${bottleLabel}</option>`;
         })
         .join("");
+      const detailPage = productDetailPages[item.productName];
+      const knowMoreMarkup =
+        shouldShowKnowMore && detailPage
+          ? `<a class="know-more-link" href="${detailPage}">Know More</a>`
+          : "";
 
       return `
         <article class="product-card" data-product-name="${item.productName}">
@@ -281,6 +294,7 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
           <button class="order-button btn-whatsapp" type="button" data-product="${item.productName}" data-size-select="${sizeSelectId}" data-quantity-select="${quantitySelectId}">
             Order on WhatsApp
           </button>
+          ${knowMoreMarkup}
         </article>
       `;
     })
