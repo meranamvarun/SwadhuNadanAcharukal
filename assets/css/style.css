@@ -124,11 +124,14 @@ p {
   gap: 0.65rem 1rem;
 }
 
-.site-header h1 {
+.site-header h1,
+.site-title {
   margin: 0;
+  font-family: var(--heading-font);
   font-size: clamp(1.35rem, 2.2vw, 1.8rem);
   letter-spacing: 0.04em;
   color: #fff;
+  font-weight: 700;
 }
 
 .main-nav {
@@ -419,6 +422,56 @@ main {
   object-fit: cover;
 }
 
+
+.seo-intro,
+.whatsapp-cta,
+.why-choose {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: clamp(1rem, 2vw, 1.25rem);
+  box-shadow: var(--shadow-sm);
+}
+
+.seo-intro h2,
+.whatsapp-cta h2,
+.why-choose h2 {
+  margin: 0 0 0.6rem;
+}
+
+.seo-intro p + p {
+  margin-top: 0.7rem;
+}
+
+.whatsapp-cta p {
+  margin: 0 0 0.8rem;
+}
+
+.whatsapp-cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #2ee071 0%, var(--whatsapp-dark) 100%);
+  border: 1px solid #0f7c3f;
+}
+
+.whatsapp-cta a:hover,
+.whatsapp-cta a:focus-visible {
+  background: linear-gradient(180deg, #27cc65 0%, #0f7c3f 100%);
+}
+
+.why-choose ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+}
 
 .intro-slider {
   background: var(--card);
@@ -795,7 +848,8 @@ main {
     justify-content: center;
   }
 
-  .site-header h1 {
+  .site-header h1,
+  .site-title {
     text-align: center;
   }
 
@@ -830,7 +884,8 @@ main {
     align-items: flex-start;
   }
 
-  .site-header h1 {
+  .site-header h1,
+  .site-title {
     text-align: left;
     max-width: 16ch;
     font-size: 1.25rem;
