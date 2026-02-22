@@ -853,6 +853,32 @@ main {
   color: #d2ffe2;
 }
 
+.footer-trust-signals {
+  margin-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 0.55rem;
+}
+
+.footer-trust-fssai {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-trust-fssai img {
+  width: 96px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.35rem;
+  background: #fff;
+  padding: 0.15rem;
+}
+
+.footer-stars {
+  color: #ffca28;
+  letter-spacing: 0.05em;
+}
+
 .social-links {
   list-style: none;
   display: flex;
