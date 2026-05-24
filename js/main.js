@@ -1,3 +1,13 @@
+// Transparent-to-dark scroll effect on the sticky header
+const siteHeader = document.getElementById("site-header");
+if (siteHeader) {
+  const onHeaderScroll = () => {
+    siteHeader.classList.toggle("scrolled", window.scrollY > 60);
+  };
+  window.addEventListener("scroll", onHeaderScroll, { passive: true });
+  onHeaderScroll();
+}
+
 const navToggle = document.querySelector(".nav-toggle");
 const mainNav = document.querySelector(".main-nav");
 
@@ -12,9 +22,7 @@ if (navToggle && mainNav) {
     document.body.classList.toggle("menu-open", Boolean(isOpen && isMobileViewport()));
   };
 
-  const closeMenu = () => {
-    setMenuState(false);
-  };
+  const closeMenu = () => setMenuState(false);
 
   navToggle.addEventListener("click", () => {
     const nextOpenState = !mainNav.classList.contains("is-open");
@@ -26,21 +34,13 @@ if (navToggle && mainNav) {
   });
 
   document.addEventListener("click", (event) => {
-    if (!mainNav.classList.contains("is-open") || !isMobileViewport()) {
-      return;
-    }
-
-    if (mainNav.contains(event.target) || navToggle.contains(event.target)) {
-      return;
-    }
-
+    if (!mainNav.classList.contains("is-open") || !isMobileViewport()) return;
+    if (mainNav.contains(event.target) || navToggle.contains(event.target)) return;
     closeMenu();
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && mainNav.classList.contains("is-open")) {
-      closeMenu();
-    }
+    if (event.key === "Escape" && mainNav.classList.contains("is-open")) closeMenu();
   });
 
   window.addEventListener("resize", () => {
@@ -62,20 +62,13 @@ const productDetailPages = {
 };
 
 function trackAnalyticsEvent(eventName, eventParams = {}) {
-  if (typeof window.gtag !== "function") {
-    return;
-  }
-
+  if (typeof window.gtag !== "function") return;
   window.gtag("event", eventName, eventParams);
 }
 
 function setupCtaClickTracking() {
   const selector = [
-    ".hero-cta",
-    ".home-shop-link",
-    ".cta-button",
-    ".btn-whatsapp",
-    "button[type='submit']",
+    ".hero-cta", ".home-shop-link", ".cta-button", ".btn-whatsapp", "button[type='submit']",
   ].join(",");
 
   document.querySelectorAll(selector).forEach((element) => {
@@ -104,9 +97,7 @@ function setupScrollDepthTracking() {
     const documentHeight =
       document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
-    if (documentHeight <= 0) {
-      return;
-    }
+    if (documentHeight <= 0) return;
 
     const depth = Math.round((scrollTop / documentHeight) * 100);
 
@@ -127,61 +118,36 @@ function setupScrollDepthTracking() {
 
 function setupProductViewTracking() {
   const productCards = document.querySelectorAll(".product-card");
-
-  if (!productCards.length || typeof window.IntersectionObserver !== "function") {
-    return;
-  }
+  if (!productCards.length || typeof window.IntersectionObserver !== "function") return;
 
   const viewedProducts = new Set();
   const observer = new IntersectionObserver(
     (entries, currentObserver) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
-
+        if (!entry.isIntersecting) return;
         const productName = entry.target.dataset.productName || "unknown";
-
-        if (viewedProducts.has(productName)) {
-          currentObserver.unobserve(entry.target);
-          return;
-        }
-
+        if (viewedProducts.has(productName)) { currentObserver.unobserve(entry.target); return; }
         viewedProducts.add(productName);
-        trackAnalyticsEvent("view_item", {
-          item_name: productName,
-          page_path: window.location.pathname,
-        });
+        trackAnalyticsEvent("view_item", { item_name: productName, page_path: window.location.pathname });
         currentObserver.unobserve(entry.target);
       });
     },
     { threshold: 0.5 }
   );
 
-  productCards.forEach((card) => {
-    observer.observe(card);
-  });
+  productCards.forEach((card) => observer.observe(card));
 }
 
 function generateOrderId() {
   const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const seconds = String(now.getSeconds()).padStart(2, "0");
-  const randomSuffix = String(Math.floor(Math.random() * 100)).padStart(2, "0");
-
-  return `SWA-${year}${month}${day}-${hours}${minutes}${seconds}-${randomSuffix}`;
+  const pad = (n) => String(n).padStart(2, "0");
+  return `SWA-${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}-${pad(Math.floor(Math.random()*100))}`;
 }
 
 function buildOrderMessage(orderId, productName, size, quantity, totalProductCost) {
   const numericQuantity = Number(quantity);
   const bottleLabel = numericQuantity === 1 ? "bottle" : "bottles";
-  const formattedTotalProductCost = Number.isFinite(totalProductCost)
-    ? totalProductCost
-    : 0;
+  const cost = Number.isFinite(totalProductCost) ? totalProductCost : 0;
 
   return [
     "Dear Swadhu Nadan Acharukal Team,",
@@ -191,7 +157,7 @@ function buildOrderMessage(orderId, productName, size, quantity, totalProductCos
     `• Product: ${productName}`,
     `• Size: ${size}`,
     `• Quantity: ${numericQuantity} ${bottleLabel}`,
-    `• Total Product Cost: ₹${formattedTotalProductCost}`,
+    `• Total Product Cost: ₹${cost}`,
     "",
     "Please share delivery details and confirmation. Thank you.",
     "നന്ദി.",
@@ -200,36 +166,25 @@ function buildOrderMessage(orderId, productName, size, quantity, totalProductCos
 
 function getSelectedProductUnitPrice(productName, size) {
   const inventory = window.SKU_INVENTORY;
-
-  if (!inventory || !Array.isArray(inventory.items)) {
-    return 0;
-  }
-
+  if (!inventory || !Array.isArray(inventory.items)) return 0;
   const productItem = inventory.items.find((item) => item.productName === productName);
-  if (!productItem || !productItem.prices) {
-    return 0;
-  }
-
-  const unitPrice = productItem.prices[size];
-  return Number(unitPrice) || 0;
+  if (!productItem || !productItem.prices) return 0;
+  return Number(productItem.prices[size]) || 0;
 }
 
 function attachWhatsAppButtonListeners() {
   document.querySelectorAll(".btn-whatsapp").forEach((button) => {
     button.addEventListener("click", () => {
       const product = button.dataset.product || "Pickle";
-      const sizeSelectId = button.dataset.sizeSelect;
-      const sizeSelect = sizeSelectId ? document.getElementById(sizeSelectId) : null;
+      const sizeSelect = button.dataset.sizeSelect ? document.getElementById(button.dataset.sizeSelect) : null;
       const size = sizeSelect ? sizeSelect.value : "100g";
-      const quantitySelectId = button.dataset.quantitySelect;
-      const quantitySelect = quantitySelectId ? document.getElementById(quantitySelectId) : null;
+      const quantitySelect = button.dataset.quantitySelect ? document.getElementById(button.dataset.quantitySelect) : null;
       const quantity = quantitySelect ? quantitySelect.value : "1";
       const orderId = generateOrderId();
       const unitPrice = getSelectedProductUnitPrice(product, size);
       const totalProductCost = unitPrice * Number(quantity);
       const message = buildOrderMessage(orderId, product, size, quantity, totalProductCost);
-      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      window.open(url, "_blank", "noopener");
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
     });
   });
 }
@@ -239,68 +194,45 @@ function slugify(value) {
 }
 
 function formatPriceMap(prices, weights) {
-  return weights
-    .map((weight) => {
-      const price = prices[weight];
-      return price ? `${weight}: ₹${price}` : `${weight}: N/A`;
-    })
-    .join(" | ");
+  return weights.map((w) => (prices[w] ? `${w}: ₹${prices[w]}` : `${w}: N/A`)).join(" | ");
 }
 
 function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItems) {
   const productGrid = document.querySelector(gridSelector);
   const inventory = window.SKU_INVENTORY;
-
-  if (!productGrid || !inventory || !Array.isArray(inventory.items)) {
-    return;
-  }
+  if (!productGrid || !inventory || !Array.isArray(inventory.items)) return;
 
   const itemsToRender = typeof maxItems === "number" ? inventory.items.slice(0, maxItems) : inventory.items;
   const shouldShowKnowMore = gridSelector === "#product-grid";
 
-  const cards = itemsToRender
-    .map((item) => {
-      const slug = slugify(item.productName);
-      const sizeSelectId = `size-${slug}`;
-      const quantitySelectId = `qty-${slug}`;
-      const weightOptions = item.weightCategories
-        .map((weight) => `<option value="${weight}">${weight}</option>`)
-        .join("");
-      const quantityOptions = item.availableQuantities
-        .map((qty) => {
-          const bottleLabel = qty === 1 ? "bottle" : "bottles";
-          return `<option value="${qty}">${qty} ${bottleLabel}</option>`;
-        })
-        .join("");
-      const detailPage = productDetailPages[item.productName];
-      const knowMoreMarkup =
-        shouldShowKnowMore && detailPage
-          ? `<a class="know-more-link" href="${detailPage}">Know More</a>`
-          : "";
+  productGrid.innerHTML = itemsToRender.map((item) => {
+    const slug = slugify(item.productName);
+    const sizeSelectId = `size-${slug}`;
+    const quantitySelectId = `qty-${slug}`;
+    const weightOptions = item.weightCategories.map((w) => `<option value="${w}">${w}</option>`).join("");
+    const quantityOptions = item.availableQuantities.map((qty) => {
+      return `<option value="${qty}">${qty} ${qty === 1 ? "bottle" : "bottles"}</option>`;
+    }).join("");
+    const detailPage = productDetailPages[item.productName];
+    const knowMoreMarkup = shouldShowKnowMore && detailPage
+      ? `<a class="know-more-link" href="${detailPage}">Know More</a>` : "";
 
-      return `
-        <article class="product-card" data-product-name="${item.productName}">
-          <img src="${item.displayPhoto}" alt="${item.productName}" />
-          <h3>${item.productName}</h3>
-          <p class="sizes">Price: <span>${formatPriceMap(item.prices, item.weightCategories)}</span></p>
-          <label class="size-select-label" for="${sizeSelectId}">Choose size</label>
-          <select id="${sizeSelectId}" class="size-select" aria-label="Choose size for ${item.productName}">
-            ${weightOptions}
-          </select>
-          <label class="size-select-label" for="${quantitySelectId}">Number of bottles</label>
-          <select id="${quantitySelectId}" class="size-select" aria-label="Choose number of bottles for ${item.productName}">
-            ${quantityOptions}
-          </select>
-          <button class="order-button btn-whatsapp" type="button" data-product="${item.productName}" data-size-select="${sizeSelectId}" data-quantity-select="${quantitySelectId}">
-            Order on WhatsApp
-          </button>
-          ${knowMoreMarkup}
-        </article>
-      `;
-    })
-    .join("");
-
-  productGrid.innerHTML = cards;
+    return `
+      <article class="product-card" data-product-name="${item.productName}">
+        <img src="${item.displayPhoto}" alt="${item.productName}" />
+        <h3>${item.productName}</h3>
+        <p class="sizes">Price: <span>${formatPriceMap(item.prices, item.weightCategories)}</span></p>
+        <label class="size-select-label" for="${sizeSelectId}">Choose size</label>
+        <select id="${sizeSelectId}" class="size-select" aria-label="Choose size for ${item.productName}">${weightOptions}</select>
+        <label class="size-select-label" for="${quantitySelectId}">Number of bottles</label>
+        <select id="${quantitySelectId}" class="size-select" aria-label="Choose number of bottles for ${item.productName}">${quantityOptions}</select>
+        <button class="order-button btn-whatsapp" type="button" data-product="${item.productName}" data-size-select="${sizeSelectId}" data-quantity-select="${quantitySelectId}">
+          Order on WhatsApp
+        </button>
+        ${knowMoreMarkup}
+      </article>
+    `;
+  }).join("");
 }
 
 renderProductCardsFromInventory();
@@ -311,10 +243,9 @@ setupScrollDepthTracking();
 setupProductViewTracking();
 
 const yearElement = document.querySelector("#year");
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
+if (yearElement) yearElement.textContent = new Date().getFullYear();
 
+// Image slider
 const sliderShell = document.querySelector(".intro-slider-shell");
 if (sliderShell) {
   const sliderTrack = sliderShell.querySelector(".intro-slider-track");
@@ -324,135 +255,51 @@ if (sliderShell) {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (sliderTrack && prevButton && nextButton) {
-    let currentIndex = 0;
-    let autoSlideTimer;
-    let touchStartX = 0;
-    let pointerStartX = null;
+    let currentIndex = 0, autoSlideTimer, touchStartX = 0, pointerStartX = null;
 
-    const renderSlide = (index) => {
-      sliderTrack.style.transform = `translate3d(-${index * 100}%, 0, 0)`;
-    };
-
-    const updateControls = () => {
-      const hasMultipleSlides = slides.length > 1;
-      prevButton.disabled = !hasMultipleSlides;
-      nextButton.disabled = !hasMultipleSlides;
-    };
-
-    const goToSlide = (index) => {
-      if (slides.length === 0) {
-        return;
-      }
-
-      if (index < 0) {
-        currentIndex = slides.length - 1;
-      } else if (index >= slides.length) {
-        currentIndex = 0;
-      } else {
-        currentIndex = index;
-      }
-
+    const renderSlide = (i) => { sliderTrack.style.transform = `translate3d(-${i * 100}%, 0, 0)`; };
+    const updateControls = () => { const m = slides.length > 1; prevButton.disabled = !m; nextButton.disabled = !m; };
+    const goToSlide = (i) => {
+      if (!slides.length) return;
+      currentIndex = i < 0 ? slides.length - 1 : i >= slides.length ? 0 : i;
       renderSlide(currentIndex);
     };
-
     const restartAutoSlide = () => {
       window.clearInterval(autoSlideTimer);
-
-      if (prefersReducedMotion || slides.length < 2) {
-        return;
-      }
-
-      autoSlideTimer = window.setInterval(() => {
-        goToSlide(currentIndex + 1);
-      }, 4500);
+      if (prefersReducedMotion || slides.length < 2) return;
+      autoSlideTimer = window.setInterval(() => goToSlide(currentIndex + 1), 4500);
     };
 
-    prevButton.addEventListener("click", () => {
-      goToSlide(currentIndex - 1);
+    prevButton.addEventListener("click", () => { goToSlide(currentIndex - 1); restartAutoSlide(); });
+    nextButton.addEventListener("click", () => { goToSlide(currentIndex + 1); restartAutoSlide(); });
+
+    sliderShell.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); goToSlide(currentIndex - 1); restartAutoSlide(); }
+      if (e.key === "ArrowRight") { e.preventDefault(); goToSlide(currentIndex + 1); restartAutoSlide(); }
+    });
+
+    sliderShell.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    sliderShell.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) < 40) return;
+      goToSlide(dx > 0 ? currentIndex - 1 : currentIndex + 1);
       restartAutoSlide();
-    });
-
-    nextButton.addEventListener("click", () => {
-      goToSlide(currentIndex + 1);
-      restartAutoSlide();
-    });
-
-    sliderShell.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        goToSlide(currentIndex - 1);
-        restartAutoSlide();
-      }
-
-      if (event.key === "ArrowRight") {
-        event.preventDefault();
-        goToSlide(currentIndex + 1);
-        restartAutoSlide();
-      }
-    });
-
-    sliderShell.addEventListener(
-      "touchstart",
-      (event) => {
-        touchStartX = event.changedTouches[0].clientX;
-      },
-      { passive: true }
-    );
-
-    sliderShell.addEventListener(
-      "touchend",
-      (event) => {
-        const deltaX = event.changedTouches[0].clientX - touchStartX;
-
-        if (Math.abs(deltaX) < 40) {
-          return;
-        }
-
-        if (deltaX > 0) {
-          goToSlide(currentIndex - 1);
-        } else {
-          goToSlide(currentIndex + 1);
-        }
-
-        restartAutoSlide();
-      },
-      { passive: true }
-    );
-
+    }, { passive: true });
 
     if (window.PointerEvent) {
-      sliderShell.addEventListener("pointerdown", (event) => {
-        if (event.pointerType !== "touch" && event.pointerType !== "pen") {
-          return;
-        }
-
-        pointerStartX = event.clientX;
+      sliderShell.addEventListener("pointerdown", (e) => {
+        if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
+        pointerStartX = e.clientX;
       });
-
-      sliderShell.addEventListener("pointerup", (event) => {
-        if (pointerStartX === null) {
-          return;
-        }
-
-        const deltaX = event.clientX - pointerStartX;
+      sliderShell.addEventListener("pointerup", (e) => {
+        if (pointerStartX === null) return;
+        const dx = e.clientX - pointerStartX;
         pointerStartX = null;
-
-        if (Math.abs(deltaX) < 40) {
-          return;
-        }
-
-        if (deltaX > 0) {
-          goToSlide(currentIndex - 1);
-        } else {
-          goToSlide(currentIndex + 1);
-        }
-
+        if (Math.abs(dx) < 40) return;
+        goToSlide(dx > 0 ? currentIndex - 1 : currentIndex + 1);
         restartAutoSlide();
       });
-
-      sliderShell.addEventListener("pointercancel", () => {
-        pointerStartX = null;
-      });
+      sliderShell.addEventListener("pointercancel", () => { pointerStartX = null; });
     }
 
     updateControls();
