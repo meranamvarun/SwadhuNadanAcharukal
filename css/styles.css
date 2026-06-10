@@ -1340,10 +1340,82 @@ main {
   filter: saturate(0.85) brightness(0.85);
 }
 
+.product-detail-media {
+  position: sticky;
+  top: 84px;
+}
+
+.product-detail-buy {
+  padding: 1.5rem;
+}
+
+.product-detail-buy h1 {
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  margin: 0 0 0.75rem;
+  text-wrap: pretty;
+}
+
+.product-detail-summary {
+  color: var(--cream-muted);
+  font-size: 0.97rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.product-detail-buy .sizes {
+  margin-bottom: 0.85rem;
+}
+
+.product-detail-buy .size-select,
+.product-detail-buy .order-button {
+  width: 100%;
+}
+
+.product-detail-buy .order-button {
+  margin-top: 0.5rem;
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0d0a06;
+}
+
+.product-detail-buy .order-button:hover,
+.product-detail-buy .order-button:focus-visible {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: #0d0a06;
+}
+
+.product-detail-content {
+  margin-top: 1.4rem;
+  padding: 1.5rem;
+}
+
+.product-detail-content h2 {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  margin: 0 0 0.85rem;
+}
+
+.product-detail-content h2:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.product-detail-content p {
+  color: var(--cream-muted);
+  font-size: 0.97rem;
+  line-height: 1.8;
+  max-width: 80ch;
+}
+
+.product-detail-content p + p {
+  margin-top: 0.85rem;
+}
+
 .product-detail-meta {
   display: grid;
   gap: 0.6rem;
-  margin: 1rem 0;
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .product-detail-meta p {
@@ -1575,6 +1647,10 @@ main {
 
   .product-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .product-detail-media {
+    position: static;
   }
 }
 
