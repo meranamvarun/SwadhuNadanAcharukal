@@ -1274,12 +1274,36 @@ main {
   fill: currentColor;
 }
 
-/* ─── Products Page ──────────────────────────────────────────────────────── */
-.products-section h2 {
-  margin-bottom: 1rem;
+/* ─── Inner Pages (About / Products / FAQ / Product detail) ──────────────── */
+.page-main {
+  padding-bottom: 72px;
 }
 
+.page-hero {
+  padding: 64px 0 44px;
+}
+
+.page-hero .section-eyebrow {
+  margin-bottom: 16px;
+}
+
+.page-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  margin: 0 0 18px;
+  text-wrap: pretty;
+}
+
+.page-hero-lead {
+  color: var(--cream-muted);
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 72ch;
+  font-weight: 300;
+}
+
+/* ─── Products Page ──────────────────────────────────────────────────────── */
 .breadcrumb {
+  margin-top: 1.5rem;
   margin-bottom: 0.9rem;
   color: var(--cream-muted);
   font-size: 0.9rem;
@@ -1372,11 +1396,11 @@ main {
 .about-page {
   display: grid;
   gap: 1.25rem;
-  padding: 2rem 0;
 }
 
 .about-story,
 .about-makers,
+.about-business,
 .kitchen-process {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1387,12 +1411,15 @@ main {
 
 .about-story h2,
 .about-makers h2,
+.about-business h2,
 .kitchen-process h2 {
   margin: 0 0 0.75rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
 }
 
 .about-story p,
-.about-makers p {
+.about-makers p,
+.about-business p {
   color: var(--cream-muted);
   font-size: 0.97rem;
   line-height: 1.8;
@@ -1401,6 +1428,15 @@ main {
 .about-story p + p,
 .about-makers p + p {
   margin-top: 0.65rem;
+}
+
+.about-page a:not(.hero-cta) {
+  color: var(--gold-light);
+}
+
+.about-page a:not(.hero-cta):hover,
+.about-page a:not(.hero-cta):focus-visible {
+  color: var(--gold);
 }
 
 .kitchen-process-intro {
@@ -1438,13 +1474,6 @@ main {
 }
 
 /* ─── FAQ Page ───────────────────────────────────────────────────────────── */
-.faq-page {
-  display: grid;
-  gap: 1rem;
-  padding: 2rem 0;
-}
-
-.faq-intro,
 .faq-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1453,20 +1482,16 @@ main {
   box-shadow: var(--shadow-sm);
 }
 
-.faq-intro h2,
-.faq-card h2 {
-  margin: 0 0 0.5rem;
-}
-
-.faq-intro p {
-  margin-top: 0.45rem;
-  color: var(--cream-muted);
-  font-size: 0.97rem;
-}
-
 .faq-list {
   display: grid;
   gap: 0.85rem;
+}
+
+.faq-cta {
+  margin-top: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 48px 24px;
 }
 
 .faq-card h3 {
@@ -1674,6 +1699,18 @@ main {
   .whatsapp-cta,
   .intro-slider {
     padding: 48px 0;
+  }
+
+  .page-hero {
+    padding: 40px 0 28px;
+  }
+
+  .page-main {
+    padding-bottom: 48px;
+  }
+
+  .faq-cta {
+    padding: 36px 18px;
   }
 
   .testimonials-grid {

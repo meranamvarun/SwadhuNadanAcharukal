@@ -87,9 +87,17 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <header class="site-header">
+    <!-- Top announcement banner -->
+    <div class="site-banner" role="status" aria-label="FSSAI registration and delivery information">
+      FSSAI REGISTERED &middot; REG NO: 21325176000637 &middot; FREE DELIVERY WITHIN THODUPUZHA
+    </div>
+
+    <header class="site-header" id="site-header">
       <div class="container">
-        <h1>Swadhu Nadan Acharukal</h1>
+        <a class="site-title" href="index.html" aria-label="Swadhu Nadan Acharukal — home">
+          Swadhu Nadan<br />
+          <span class="site-title-sub">Acharukal</span>
+        </a>
         <button
           class="nav-toggle"
           type="button"
@@ -108,21 +116,35 @@
             <li><a href="about.html">About</a></li>
             <li><a class="active" href="products.html" aria-current="page">Products</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="https://blog.swadhunadanacharukal.com/">Blog</a></li>
+            <li><a href="https://blog.swadhunadanacharukal.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
           </ul>
+          <a
+            href="https://wa.me/919495972251"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-order-btn"
+          >Order Now</a>
         </nav>
       </div>
     </header>
 
-    <main class="container">
-      <section class="products-section">
-        <h2>Our Pickle Collection</h2>
+    <main class="page-main">
+      <div class="container">
+        <section class="page-hero" aria-labelledby="products-page-title">
+          <p class="section-eyebrow">Our Collection</p>
+          <h1 id="products-page-title">Kerala Homemade Pickle Collection</h1>
+          <p class="page-hero-lead">
+            Browse authentic nadan acharukal — mango, lemon, gooseberry, fish, prawn, and beef pickles —
+            handcrafted in small batches at our home kitchen in Thodupuzha. Choose a size and order
+            directly on WhatsApp.
+          </p>
+        </section>
         <div class="trust-banner" role="status" aria-label="FSSAI registration details">
           <p class="trust-banner-title">🛡️ FSSAI Registered Homemade Food Business</p>
           <p class="trust-banner-meta">Registration No: <strong>21325176000637</strong></p>
         </div>
         <div class="product-grid" id="product-grid" aria-live="polite"></div>
-      </section>
+      </div>
     </main>
 
     <footer class="site-footer">

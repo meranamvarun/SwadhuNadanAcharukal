@@ -103,9 +103,17 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <header class="site-header">
+    <!-- Top announcement banner -->
+    <div class="site-banner" role="status" aria-label="FSSAI registration and delivery information">
+      FSSAI REGISTERED &middot; REG NO: 21325176000637 &middot; FREE DELIVERY WITHIN THODUPUZHA
+    </div>
+
+    <header class="site-header" id="site-header">
       <div class="container">
-        <h1>Swadhu Nadan Acharukal</h1>
+        <a class="site-title" href="index.html" aria-label="Swadhu Nadan Acharukal — home">
+          Swadhu Nadan<br />
+          <span class="site-title-sub">Acharukal</span>
+        </a>
         <button
           class="nav-toggle"
           type="button"
@@ -124,21 +132,30 @@
             <li><a class="active" href="about.html" aria-current="page">About</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="https://blog.swadhunadanacharukal.com/">Blog</a></li>
+            <li><a href="https://blog.swadhunadanacharukal.com/" target="_blank" rel="noopener noreferrer">Blog</a></li>
           </ul>
+          <a
+            href="https://wa.me/919495972251"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-order-btn"
+          >Order Now</a>
         </nav>
       </div>
     </header>
 
-    <main class="container about-page">
-      <section class="about-page-intro" aria-labelledby="about-page-seo-heading">
+    <main class="page-main">
+      <div class="container">
+      <section class="page-hero" aria-labelledby="about-page-seo-heading">
+        <p class="section-eyebrow">Our Story &middot; Thodupuzha, Idukki</p>
         <h1 id="about-page-seo-heading">Traditional Kerala Homemade Pickle Makers in Thodupuzha</h1>
-        <p>
+        <p class="page-hero-lead">
           Swadhu Nadan Acharukal is a family kitchen in Thodupuzha crafting authentic Kerala homemade
           pickles in small batches with traditional nadan methods.
         </p>
       </section>
 
+      <div class="about-page">
       <section class="about-story" aria-labelledby="about-story-heading">
         <h2 id="about-story-heading">How Swadhu Nadan Acharukal Started</h2>
         <p>
@@ -251,6 +268,8 @@
           </figure>
         </div>
       </section>
+      </div>
+      </div>
     </main>
 
     <footer class="site-footer">
