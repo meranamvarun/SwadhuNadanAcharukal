@@ -2,7 +2,8 @@ User-agent: *
 Allow: /
 
 # Important public resources
-Allow: /assets/css/
+Allow: /css/
+Allow: /js/
 Allow: /assets/img/
 
 Sitemap: https://swadhunadanacharukal.com/sitemap.xml

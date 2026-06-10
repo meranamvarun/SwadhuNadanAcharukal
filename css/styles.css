@@ -285,7 +285,7 @@ main {
 .hero-visual {
   position: absolute;
   inset: 0;
-  background-image: url("../img/home-prepared-achar-dining-table.jpeg");
+  background-image: url("../assets/img/home-prepared-achar-dining-table.webp");
   background-size: cover;
   background-position: center;
   filter: brightness(0.28) saturate(0.8);
@@ -491,6 +491,11 @@ main {
   border-color: rgba(201, 162, 39, 0.35);
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.product-card picture {
+  display: block;
+  flex-shrink: 0;
 }
 
 .product-card img {
@@ -1274,12 +1279,36 @@ main {
   fill: currentColor;
 }
 
-/* ─── Products Page ──────────────────────────────────────────────────────── */
-.products-section h2 {
-  margin-bottom: 1rem;
+/* ─── Inner Pages (About / Products / FAQ / Product detail) ──────────────── */
+.page-main {
+  padding-bottom: 72px;
 }
 
+.page-hero {
+  padding: 64px 0 44px;
+}
+
+.page-hero .section-eyebrow {
+  margin-bottom: 16px;
+}
+
+.page-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  margin: 0 0 18px;
+  text-wrap: pretty;
+}
+
+.page-hero-lead {
+  color: var(--cream-muted);
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 72ch;
+  font-weight: 300;
+}
+
+/* ─── Products Page ──────────────────────────────────────────────────────── */
 .breadcrumb {
+  margin-top: 1.5rem;
   margin-bottom: 0.9rem;
   color: var(--cream-muted);
   font-size: 0.9rem;
@@ -1316,10 +1345,82 @@ main {
   filter: saturate(0.85) brightness(0.85);
 }
 
+.product-detail-media {
+  position: sticky;
+  top: 84px;
+}
+
+.product-detail-buy {
+  padding: 1.5rem;
+}
+
+.product-detail-buy h1 {
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  margin: 0 0 0.75rem;
+  text-wrap: pretty;
+}
+
+.product-detail-summary {
+  color: var(--cream-muted);
+  font-size: 0.97rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.product-detail-buy .sizes {
+  margin-bottom: 0.85rem;
+}
+
+.product-detail-buy .size-select,
+.product-detail-buy .order-button {
+  width: 100%;
+}
+
+.product-detail-buy .order-button {
+  margin-top: 0.5rem;
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0d0a06;
+}
+
+.product-detail-buy .order-button:hover,
+.product-detail-buy .order-button:focus-visible {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: #0d0a06;
+}
+
+.product-detail-content {
+  margin-top: 1.4rem;
+  padding: 1.5rem;
+}
+
+.product-detail-content h2 {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  margin: 0 0 0.85rem;
+}
+
+.product-detail-content h2:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.product-detail-content p {
+  color: var(--cream-muted);
+  font-size: 0.97rem;
+  line-height: 1.8;
+  max-width: 80ch;
+}
+
+.product-detail-content p + p {
+  margin-top: 0.85rem;
+}
+
 .product-detail-meta {
   display: grid;
   gap: 0.6rem;
-  margin: 1rem 0;
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .product-detail-meta p {
@@ -1372,11 +1473,11 @@ main {
 .about-page {
   display: grid;
   gap: 1.25rem;
-  padding: 2rem 0;
 }
 
 .about-story,
 .about-makers,
+.about-business,
 .kitchen-process {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1387,12 +1488,15 @@ main {
 
 .about-story h2,
 .about-makers h2,
+.about-business h2,
 .kitchen-process h2 {
   margin: 0 0 0.75rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
 }
 
 .about-story p,
-.about-makers p {
+.about-makers p,
+.about-business p {
   color: var(--cream-muted);
   font-size: 0.97rem;
   line-height: 1.8;
@@ -1401,6 +1505,15 @@ main {
 .about-story p + p,
 .about-makers p + p {
   margin-top: 0.65rem;
+}
+
+.about-page a:not(.hero-cta) {
+  color: var(--gold-light);
+}
+
+.about-page a:not(.hero-cta):hover,
+.about-page a:not(.hero-cta):focus-visible {
+  color: var(--gold);
 }
 
 .kitchen-process-intro {
@@ -1438,13 +1551,6 @@ main {
 }
 
 /* ─── FAQ Page ───────────────────────────────────────────────────────────── */
-.faq-page {
-  display: grid;
-  gap: 1rem;
-  padding: 2rem 0;
-}
-
-.faq-intro,
 .faq-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1453,20 +1559,16 @@ main {
   box-shadow: var(--shadow-sm);
 }
 
-.faq-intro h2,
-.faq-card h2 {
-  margin: 0 0 0.5rem;
-}
-
-.faq-intro p {
-  margin-top: 0.45rem;
-  color: var(--cream-muted);
-  font-size: 0.97rem;
-}
-
 .faq-list {
   display: grid;
   gap: 0.85rem;
+}
+
+.faq-cta {
+  margin-top: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 48px 24px;
 }
 
 .faq-card h3 {
@@ -1550,6 +1652,10 @@ main {
 
   .product-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .product-detail-media {
+    position: static;
   }
 }
 
@@ -1674,6 +1780,18 @@ main {
   .whatsapp-cta,
   .intro-slider {
     padding: 48px 0;
+  }
+
+  .page-hero {
+    padding: 40px 0 28px;
+  }
+
+  .page-main {
+    padding-bottom: 48px;
+  }
+
+  .faq-cta {
+    padding: 36px 18px;
   }
 
   .testimonials-grid {

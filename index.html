@@ -24,6 +24,7 @@
     />
     <meta property="og:url" content="https://swadhunadanacharukal.com/" />
     <meta property="og:site_name" content="Swadhu Nadan Acharukal" />
+    <meta property="og:locale" content="en_IN" />
     <meta
       property="og:image"
       content="https://swadhunadanacharukal.com/assets/img/fish-achar.jpeg"
@@ -88,6 +89,10 @@
       gtag('config', 'G-69TCQRBFP1');
     </script>
 
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -95,6 +100,13 @@
       rel="stylesheet"
     />
 
+    <link
+      rel="preload"
+      as="image"
+      href="assets/img/home-prepared-achar-dining-table.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
@@ -223,7 +235,83 @@
               size guidance and quick confirmation.
             </p>
           </div>
-          <div class="product-grid" id="product-grid-home" aria-live="polite"></div>
+          <div class="product-grid" id="product-grid-home" aria-live="polite" data-prerendered="true">
+            <article class="product-card" data-product-name="Mango Pickle">
+              <picture>
+                <source type="image/webp" srcset="assets/img/mango-achar-480.webp 480w, assets/img/mango-achar.webp 1280w" sizes="(max-width: 640px) 92vw, 320px" />
+                <img src="assets/img/mango-achar.jpeg" alt="Mango Pickle — homemade Kerala pickle" width="1280" height="960" loading="lazy" decoding="async" />
+              </picture>
+              <h3>Mango Pickle</h3>
+              <p class="sizes">Price: <span>250g: ₹50 | 500g: ₹100</span></p>
+              <label class="size-select-label" for="size-mango-pickle">Choose size</label>
+              <select id="size-mango-pickle" class="size-select" aria-label="Choose size for Mango Pickle"><option value="250g">250g</option><option value="500g">500g</option></select>
+              <label class="size-select-label" for="qty-mango-pickle">Number of bottles</label>
+              <select id="qty-mango-pickle" class="size-select" aria-label="Choose number of bottles for Mango Pickle"><option value="1">1 bottle</option><option value="2">2 bottles</option><option value="3">3 bottles</option><option value="4">4 bottles</option><option value="5">5 bottles</option></select>
+              <button class="order-button btn-whatsapp" type="button" data-product="Mango Pickle" data-size-select="size-mango-pickle" data-quantity-select="qty-mango-pickle">
+                Order on WhatsApp
+              </button>
+            </article>
+            <article class="product-card" data-product-name="Lemon Pickle">
+              <picture>
+                <source type="image/webp" srcset="assets/img/lime-achar-480.webp 480w, assets/img/lime-achar.webp 1280w" sizes="(max-width: 640px) 92vw, 320px" />
+                <img src="assets/img/lime-achar.jpeg" alt="Lemon Pickle — homemade Kerala pickle" width="1280" height="960" loading="lazy" decoding="async" />
+              </picture>
+              <h3>Lemon Pickle</h3>
+              <p class="sizes">Price: <span>250g: ₹50 | 500g: ₹100</span></p>
+              <label class="size-select-label" for="size-lemon-pickle">Choose size</label>
+              <select id="size-lemon-pickle" class="size-select" aria-label="Choose size for Lemon Pickle"><option value="250g">250g</option><option value="500g">500g</option></select>
+              <label class="size-select-label" for="qty-lemon-pickle">Number of bottles</label>
+              <select id="qty-lemon-pickle" class="size-select" aria-label="Choose number of bottles for Lemon Pickle"><option value="1">1 bottle</option><option value="2">2 bottles</option><option value="3">3 bottles</option><option value="4">4 bottles</option><option value="5">5 bottles</option></select>
+              <button class="order-button btn-whatsapp" type="button" data-product="Lemon Pickle" data-size-select="size-lemon-pickle" data-quantity-select="qty-lemon-pickle">
+                Order on WhatsApp
+              </button>
+            </article>
+            <article class="product-card" data-product-name="Gooseberry Pickle">
+              <picture>
+                <source type="image/webp" srcset="assets/img/amla-achar-480.webp 480w, assets/img/amla-achar.webp 1280w" sizes="(max-width: 640px) 92vw, 320px" />
+                <img src="assets/img/amla-achar.jpeg" alt="Gooseberry Pickle — homemade Kerala pickle" width="1280" height="960" loading="lazy" decoding="async" />
+              </picture>
+              <h3>Gooseberry Pickle</h3>
+              <p class="sizes">Price: <span>250g: ₹50 | 500g: ₹100</span></p>
+              <label class="size-select-label" for="size-gooseberry-pickle">Choose size</label>
+              <select id="size-gooseberry-pickle" class="size-select" aria-label="Choose size for Gooseberry Pickle"><option value="250g">250g</option><option value="500g">500g</option></select>
+              <label class="size-select-label" for="qty-gooseberry-pickle">Number of bottles</label>
+              <select id="qty-gooseberry-pickle" class="size-select" aria-label="Choose number of bottles for Gooseberry Pickle"><option value="1">1 bottle</option><option value="2">2 bottles</option><option value="3">3 bottles</option><option value="4">4 bottles</option><option value="5">5 bottles</option></select>
+              <button class="order-button btn-whatsapp" type="button" data-product="Gooseberry Pickle" data-size-select="size-gooseberry-pickle" data-quantity-select="qty-gooseberry-pickle">
+                Order on WhatsApp
+              </button>
+            </article>
+            <article class="product-card" data-product-name="Fish Pickle">
+              <picture>
+                <source type="image/webp" srcset="assets/img/fish-pickle-480.webp 480w, assets/img/fish-pickle.webp 1280w" sizes="(max-width: 640px) 92vw, 320px" />
+                <img src="assets/img/fish-pickle.jpeg" alt="Fish Pickle — homemade Kerala pickle" width="1280" height="960" loading="lazy" decoding="async" />
+              </picture>
+              <h3>Fish Pickle</h3>
+              <p class="sizes">Price: <span>100g: ₹90 | 250g: ₹200 | 500g: ₹450</span></p>
+              <label class="size-select-label" for="size-fish-pickle">Choose size</label>
+              <select id="size-fish-pickle" class="size-select" aria-label="Choose size for Fish Pickle"><option value="100g">100g</option><option value="250g">250g</option><option value="500g">500g</option></select>
+              <label class="size-select-label" for="qty-fish-pickle">Number of bottles</label>
+              <select id="qty-fish-pickle" class="size-select" aria-label="Choose number of bottles for Fish Pickle"><option value="1">1 bottle</option><option value="2">2 bottles</option><option value="3">3 bottles</option><option value="4">4 bottles</option><option value="5">5 bottles</option></select>
+              <button class="order-button btn-whatsapp" type="button" data-product="Fish Pickle" data-size-select="size-fish-pickle" data-quantity-select="qty-fish-pickle">
+                Order on WhatsApp
+              </button>
+            </article>
+            <article class="product-card" data-product-name="Beef Pickle">
+              <picture>
+                <source type="image/webp" srcset="assets/img/beef-achaar-480.webp 480w, assets/img/beef-achaar.webp 1600w" sizes="(max-width: 640px) 92vw, 320px" />
+                <img src="assets/img/beef-achaar.jpeg" alt="Beef Pickle — homemade Kerala pickle" width="1600" height="900" loading="lazy" decoding="async" />
+              </picture>
+              <h3>Beef Pickle</h3>
+              <p class="sizes">Price: <span>100g: ₹90 | 250g: ₹225 | 500g: ₹450</span></p>
+              <label class="size-select-label" for="size-beef-pickle">Choose size</label>
+              <select id="size-beef-pickle" class="size-select" aria-label="Choose size for Beef Pickle"><option value="100g">100g</option><option value="250g">250g</option><option value="500g">500g</option></select>
+              <label class="size-select-label" for="qty-beef-pickle">Number of bottles</label>
+              <select id="qty-beef-pickle" class="size-select" aria-label="Choose number of bottles for Beef Pickle"><option value="1">1 bottle</option><option value="2">2 bottles</option><option value="3">3 bottles</option><option value="4">4 bottles</option><option value="5">5 bottles</option></select>
+              <button class="order-button btn-whatsapp" type="button" data-product="Beef Pickle" data-size-select="size-beef-pickle" data-quantity-select="qty-beef-pickle">
+                Order on WhatsApp
+              </button>
+            </article>
+          </div>
           <a class="home-shop-link" href="products.html">View full product collection</a>
         </div>
       </section>
@@ -248,20 +336,16 @@
             <div class="intro-slider-viewport">
               <div class="intro-slider-track">
                 <figure class="intro-slide">
-                  <img
-                    src="assets/img/home-prepared-achar-dining-table.jpeg"
-                    alt="Swadhu Nadan Acharukal homemade pickle in a serving bowl on a dining table"
-                    width="800"
-                    height="1000"
-                  />
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/home-prepared-achar-dining-table-480.webp 480w, assets/img/home-prepared-achar-dining-table.webp 1600w" sizes="(max-width: 820px) 92vw, 680px" />
+                    <img src="assets/img/home-prepared-achar-dining-table.jpeg" alt="Swadhu Nadan Acharukal homemade pickle in a serving bowl on a dining table" width="1600" height="900" loading="lazy" decoding="async" />
+                  </picture>
                 </figure>
                 <figure class="intro-slide">
-                  <img
-                    src="assets/img/all-products-display-2.jpeg"
-                    alt="Assortment of Swadhu Nadan Acharukal homemade Kerala pickle jars"
-                    width="800"
-                    height="1000"
-                  />
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/all-products-display-2-480.webp 480w, assets/img/all-products-display-2.webp 1280w" sizes="(max-width: 820px) 92vw, 680px" />
+                    <img src="assets/img/all-products-display-2.jpeg" alt="Assortment of Swadhu Nadan Acharukal homemade Kerala pickle jars" width="1280" height="960" loading="lazy" decoding="async" />
+                  </picture>
                 </figure>
               </div>
             </div>
@@ -277,14 +361,10 @@
         <div class="container">
           <div class="story-grid">
             <div class="story-image-wrap">
-              <img
-                src="assets/img/all-products-display-2.jpeg"
-                alt="Swadhu Nadan Acharukal — assortment of homemade Kerala pickle jars"
-                width="800"
-                height="600"
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source type="image/webp" srcset="assets/img/all-products-display-2-480.webp 480w, assets/img/all-products-display-2.webp 1280w" sizes="(max-width: 960px) 92vw, 560px" />
+                <img src="assets/img/all-products-display-2.jpeg" alt="Swadhu Nadan Acharukal — assortment of homemade Kerala pickle jars" width="1280" height="960" loading="lazy" decoding="async" />
+              </picture>
               <div class="story-rating-badge" aria-label="5-star Google Reviews rating">
                 <span class="rating-score">5.0</span>
                 <span class="rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -479,7 +559,10 @@
           </ul>
           <div class="footer-trust-signals" aria-label="Business trust signals">
             <p class="footer-trust-fssai">
-              <img src="assets/img/FSSAI-logo-min+line.png" alt="FSSAI registered badge" loading="lazy" decoding="async" />
+              <picture>
+                <source type="image/webp" srcset="assets/img/FSSAI-logo-min+line-160.webp" />
+                <img src="assets/img/FSSAI-logo-min+line.png" alt="FSSAI registered badge" width="838" height="590" loading="lazy" decoding="async" />
+              </picture>
               <span>FSSAI Registration No: <strong>21325176000637</strong></span>
             </p>
             <p>Delivery available in Thodupuzha, Idukki, and parcel delivery across Kerala.</p>
