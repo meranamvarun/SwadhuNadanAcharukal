@@ -202,6 +202,9 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
   const inventory = window.SKU_INVENTORY;
   if (!productGrid || !inventory || !Array.isArray(inventory.items)) return;
 
+  // Grids shipped pre-rendered in the HTML for SEO; JS render is a fallback
+  if (productGrid.dataset.prerendered === "true") return;
+
   const itemsToRender = typeof maxItems === "number" ? inventory.items.slice(0, maxItems) : inventory.items;
   const shouldShowKnowMore = gridSelector === "#product-grid";
 
@@ -216,10 +219,14 @@ function renderProductCardsFromInventory(gridSelector = "#product-grid", maxItem
     const detailPage = productDetailPages[item.productName];
     const knowMoreMarkup = shouldShowKnowMore && detailPage
       ? `<a class="know-more-link" href="${detailPage}">Know More</a>` : "";
+    const photoBase = item.displayPhoto.replace(/\.(jpeg|jpg|png)$/, "");
 
     return `
       <article class="product-card" data-product-name="${item.productName}">
-        <img src="${item.displayPhoto}" alt="${item.productName}" />
+        <picture>
+          <source type="image/webp" srcset="${photoBase}-480.webp 480w, ${photoBase}.webp ${item.photoWidth || 1280}w" sizes="(max-width: 640px) 92vw, 320px" />
+          <img src="${item.displayPhoto}" alt="${item.productName} — homemade Kerala pickle" width="${item.photoWidth || 1280}" height="${item.photoHeight || 960}" loading="lazy" decoding="async" />
+        </picture>
         <h3>${item.productName}</h3>
         <p class="sizes">Price: <span>${formatPriceMap(item.prices, item.weightCategories)}</span></p>
         <label class="size-select-label" for="${sizeSelectId}">Choose size</label>

@@ -4,6 +4,8 @@ window.SKU_INVENTORY = {
       sku: "SKU-MANGO-001",
       productName: "Mango Pickle",
       displayPhoto: "assets/img/mango-achar.jpeg",
+      photoWidth: 1280,
+      photoHeight: 960,
       weightCategories: ["250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
@@ -15,6 +17,8 @@ window.SKU_INVENTORY = {
       sku: "SKU-LEMON-001",
       productName: "Lemon Pickle",
       displayPhoto: "assets/img/lime-achar.jpeg",
+      photoWidth: 1280,
+      photoHeight: 960,
       weightCategories: ["250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
@@ -26,6 +30,8 @@ window.SKU_INVENTORY = {
       sku: "SKU-GOOSEBERRY-001",
       productName: "Gooseberry Pickle",
       displayPhoto: "assets/img/amla-achar.jpeg",
+      photoWidth: 1280,
+      photoHeight: 960,
       weightCategories: ["250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
@@ -37,6 +43,8 @@ window.SKU_INVENTORY = {
       sku: "SKU-FISH-001",
       productName: "Fish Pickle",
       displayPhoto: "assets/img/fish-pickle.jpeg",
+      photoWidth: 1280,
+      photoHeight: 960,
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {
@@ -49,6 +57,8 @@ window.SKU_INVENTORY = {
       sku: "SKU-BEEF-001",
       productName: "Beef Pickle",
       displayPhoto: "assets/img/beef-achaar.jpeg",
+      photoWidth: 1600,
+      photoHeight: 900,
       weightCategories: ["100g", "250g", "500g"],
       availableQuantities: [1, 2, 3, 4, 5],
       prices: {

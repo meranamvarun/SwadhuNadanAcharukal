@@ -285,7 +285,7 @@ main {
 .hero-visual {
   position: absolute;
   inset: 0;
-  background-image: url("../img/home-prepared-achar-dining-table.jpeg");
+  background-image: url("../assets/img/home-prepared-achar-dining-table.webp");
   background-size: cover;
   background-position: center;
   filter: brightness(0.28) saturate(0.8);
@@ -491,6 +491,11 @@ main {
   border-color: rgba(201, 162, 39, 0.35);
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.product-card picture {
+  display: block;
+  flex-shrink: 0;
 }
 
 .product-card img {
