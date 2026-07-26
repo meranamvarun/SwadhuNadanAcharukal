@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+# Internal development documentation — not for search results
+Disallow: /CLAUDE.md
 
 # AI assistants and answer engines are explicitly welcome
 User-agent: GPTBot

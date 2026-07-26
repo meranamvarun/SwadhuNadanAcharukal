@@ -26,8 +26,9 @@ There are no tests, linters, or CI configurations in the repository.
 
 Each HTML page is self-contained and shares the same header/footer markup duplicated across files. There is no templating engine. Pages:
 
-- `index.html` — Homepage with hero, SEO intro, testimonials, image slider, and a dynamically rendered product grid
-- `products.html` — Full product listing page with a dynamically rendered product grid
+- `index.html` — Homepage with hero, SEO intro, testimonials, image slider, and a product grid (pre-rendered in HTML; shows the 5 flagship pickles)
+- `products.html` — Full product listing page with a product grid (pre-rendered in HTML; all products)
+- `price-list.html` — Complete price table for all products and sizes, with a downloadable PDF (`assets/price-list.pdf`)
 - `about.html`, `faq.html` — Static informational pages
 - `mango-pickle-kerala.html`, `lemon-pickle-kerala.html`, `fish-pickle-kerala.html`, `beef-pickle-kerala.html`, `gooseberry-pickle-kerala.html` — Individual product detail pages (one per SKU), each with WhatsApp order buttons wired up to `main.js`
 
@@ -55,8 +56,11 @@ Each page includes full `<meta>` tags (Open Graph, Twitter Card), a `<link rel="
 ## Adding a New Product
 
 1. Add an entry to `window.SKU_INVENTORY.items` in `js/sku-data.js`
-2. Add the product image to `assets/img/`
-3. Create a new detail page (copy an existing `*-pickle-kerala.html` as a template)
-4. Add the new page to `productDetailPages` in `js/main.js`
-5. Add a `<url>` entry to `sitemap.xml`
-6. Update structured data on `products.html` (`ItemList` schema)
+2. Add the product image to `assets/img/` (a `.jpeg` plus `.webp` and `-480.webp` variants)
+3. Add a matching card to the **pre-rendered** grid in `products.html` (`#product-grid` has `data-prerendered="true"`, so the JS renderer is only a fallback — the static HTML is what users see). The homepage grid (`#product-grid-home`) intentionally shows only the 5 flagship pickles.
+4. Add a row to the table in `price-list.html`
+5. Optionally create a detail page (copy an existing `*-pickle-kerala.html` as a template) and add it to `productDetailPages` in `js/main.js`; products without a detail page simply get no "Know More" link
+6. Add a `<url>` entry to `sitemap.xml` (if a new page was created)
+7. Update structured data on `products.html` (`ItemList` schema) and the FAQ price answer in `faq.html`, plus `llms.txt`
+
+When prices change: update `js/sku-data.js`, the pre-rendered cards in `index.html`/`products.html`, the detail pages (visible text, size selects, `Product` offers and `FAQPage` JSON-LD), `price-list.html`, `faq.html`, `llms.txt`, and the `priceRange` field in every page's business JSON-LD.
